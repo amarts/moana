@@ -6,7 +6,7 @@ defmodule Moana.Storage.Cluster do
   @foreign_key_type :binary_id
   schema "clusters" do
     field :name, :string
-    has_many :nodes, Moana.Storage.Node
+    has_many :nodes, Moana.Storage.Node, foreign_key: :cluster_id
 
     timestamps()
   end
@@ -17,5 +17,6 @@ defmodule Moana.Storage.Cluster do
     |> cast(attrs, [:name])
     |> validate_required([:name])
     |> unique_constraint(:name)
+    |> foreign_key_constraint(:cluster_id)
   end
 end

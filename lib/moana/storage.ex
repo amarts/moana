@@ -127,7 +127,7 @@ defmodule Moana.Storage do
 
   """
   def list_nodes(cluster_id) do
-    Repo.get_by(Node, cluster_id: cluster_id)
+    Repo.all(from n in Node, where: n.cluster_id == ^cluster_id)
   end
 
   @doc """
