@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :moana,
-  ecto_repos: [Moana.Repo]
+  ecto_repos: [Moana.Repo],
+  generators: [binary_id: true]
 
 # Configures the endpoint
 config :moana, MoanaWeb.Endpoint,
