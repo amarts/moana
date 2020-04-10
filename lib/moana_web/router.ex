@@ -5,7 +5,9 @@ defmodule MoanaWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", MoanaWeb do
+  scope "/api/v1", MoanaWeb do
     pipe_through :api
+
+    resources "/clusters", ClusterController, except: [:new, :edit]
   end
 end

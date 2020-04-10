@@ -48,6 +48,15 @@ ALTER USER postgres PASSWORD 'postgres';
 ALTER USER postgres WITH SUPERUSER;
 ```
 
+## Tables Setup
+
+```
+mix phx.gen.json Accounts Cluster clusters name:string
+```
+
+Update the `unique_constraint` as required. and then run `ecto.migrate`
+
+
 ## Start Phoenix Server
 
 * Install dependencies with `mix deps.get`
