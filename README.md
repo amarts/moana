@@ -51,7 +51,7 @@ ALTER USER postgres WITH SUPERUSER;
 ## Tables Setup
 
 ```
-mix phx.gen.json Accounts Cluster clusters name:string
+mix phx.gen.json Storage Cluster clusters name:string
 ```
 
 Update the `unique_constraint` as required. and then run `ecto.migrate`

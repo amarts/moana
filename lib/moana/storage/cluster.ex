@@ -1,4 +1,4 @@
-defmodule Moana.Accounts.Cluster do
+defmodule Moana.Storage.Cluster do
   use Ecto.Schema
   import Ecto.Changeset
 

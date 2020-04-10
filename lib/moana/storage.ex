@@ -1,12 +1,12 @@
-defmodule Moana.Accounts do
+defmodule Moana.Storage do
   @moduledoc """
-  The Accounts context.
+  The Storage context.
   """
 
   import Ecto.Query, warn: false
   alias Moana.Repo
 
-  alias Moana.Accounts.Cluster
+  alias Moana.Storage.Cluster
 
   @doc """
   Returns the list of clusters.
