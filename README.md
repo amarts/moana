@@ -56,6 +56,9 @@ mix phx.gen.json Storage Cluster clusters name:string
 
 Update the `unique_constraint` as required. and then run `ecto.migrate`
 
+```
+mix phx.gen.json Storage Node nodes hostname:string
+```
 
 ## Start Phoenix Server
 

@@ -6,6 +6,7 @@ defmodule Moana.Storage.Cluster do
   @foreign_key_type :binary_id
   schema "clusters" do
     field :name, :string
+    has_many :nodes, Moana.Storage.Node
 
     timestamps()
   end

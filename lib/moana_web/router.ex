@@ -8,6 +8,8 @@ defmodule MoanaWeb.Router do
   scope "/api/v1", MoanaWeb do
     pipe_through :api
 
-    resources "/clusters", ClusterController, except: [:new, :edit]
+    resources "/clusters", ClusterController, except: [:new, :edit] do
+      resources "/nodes", NodeController, except: [:new, :edit]
+    end
   end
 end
