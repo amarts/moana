@@ -12,7 +12,7 @@ defmodule MoanaWeb.TaskView do
 
   def render("showid.json", %{task: task}) do
     %{
-      id: task.id
+      data: %{id: task.id}
     }
   end
 
