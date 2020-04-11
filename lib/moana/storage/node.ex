@@ -7,6 +7,7 @@ defmodule Moana.Storage.Node do
   schema "nodes" do
     field :hostname, :string
     belongs_to :clusters, Moana.Storage.Cluster, [foreign_key: :cluster_id]
+    has_many :nodetasks, Moana.Messages.NodeTask, foreign_key: :node_id
 
     timestamps()
   end
@@ -17,6 +18,7 @@ defmodule Moana.Storage.Node do
     |> cast(attrs, [:hostname, :cluster_id])
     |> validate_required([:hostname, :cluster_id])
     |> foreign_key_constraint(:cluster_id)
+    |> foreign_key_constraint(:node_id)
     |> unique_constraint(:hostname, name: :nodes_hostname_cluster_id_index)
   end
 end
