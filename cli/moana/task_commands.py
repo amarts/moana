@@ -2,13 +2,15 @@ import json
 
 import requests
 
+from moana.cliutils import get_cluster_id, cluster_id_none_failure
+
 
 def task_row(task):
     data = json.loads(task["data"])
     row = []
-    for k, v in data.items():
-        if isinstance(v, str):
-            row.append("%s=%s" % (k, v))
+    for key, val in data.items():
+        if isinstance(val, str):
+            row.append("%s=%s" % (key, val))
     return "%-36s  %-10s  %-15s  %s" % (
         task["id"],
         task["state"],
@@ -42,14 +44,20 @@ def display_task(task):
         print(node_task_row(nodetask))
 
 
-def set_args_get_tasks(parser):
-    parser.add_argument("--cluster-id", required=True)
-    parser.add_argument("--task-id")
+def set_args(subparser):
+    task_parser = subparser.add_parser('task')
+    task_subparser = task_parser.add_subparsers(dest="subcmd")
+
+    cmd_list = task_subparser.add_parser("list")
+    cmd_list.add_argument("--cluster", help="Cluster name or ID")
+    cmd_list.add_argument("--task-id", help="Task ID")
 
 
-def run_get_tasks(args):
+def subcmd_list(args):
+    cluster_id = get_cluster_id(args.cluster, default=True)
+    cluster_id_none_failure(cluster_id)
     print()
-    url = "%s/api/v1/clusters/%s/tasks" % (args.url, args.cluster_id)
+    url = "%s/api/v1/clusters/%s/tasks" % (args.url, cluster_id)
     if args.task_id:
         url += "/" + args.task_id
     resp = requests.get(url)
