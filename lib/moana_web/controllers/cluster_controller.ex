@@ -16,7 +16,7 @@ defmodule MoanaWeb.ClusterController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.cluster_path(conn, :show, cluster))
-      |> render("show.json", cluster: cluster)
+      |> render("show.json", cluster: Map.put(cluster, :nodes, []))
     end
   end
 

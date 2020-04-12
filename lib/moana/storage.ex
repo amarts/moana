@@ -7,6 +7,7 @@ defmodule Moana.Storage do
   alias Moana.Repo
 
   alias Moana.Storage.Cluster
+  alias Moana.Storage.Node
 
   @doc """
   Returns the list of clusters.
@@ -18,7 +19,10 @@ defmodule Moana.Storage do
 
   """
   def list_clusters do
-    Repo.all(Cluster)
+    Repo.all(from c in Cluster,
+      left_join: n in Node, on: c.id == n.cluster_id,
+      preload: [:nodes]
+    )
   end
 
   @doc """
@@ -35,7 +39,14 @@ defmodule Moana.Storage do
       ** (Ecto.NoResultsError)
 
   """
-  def get_cluster!(id), do: Repo.get!(Cluster, id)
+  def get_cluster!(id) do
+    Repo.get!((
+      from c in Cluster,
+      left_join: n in Node, on: c.id == n.cluster_id,
+      preload: [:nodes]
+    ),
+      id)
+  end
 
   @doc """
   Creates a cluster.
@@ -101,8 +112,6 @@ defmodule Moana.Storage do
   def change_cluster(%Cluster{} = cluster) do
     Cluster.changeset(cluster, %{})
   end
-
-  alias Moana.Storage.Node
 
   @doc """
   Returns the list of nodes.
