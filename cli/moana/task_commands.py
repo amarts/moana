@@ -49,8 +49,8 @@ def set_args(subparser):
     task_subparser = task_parser.add_subparsers(dest="subcmd")
 
     cmd_list = task_subparser.add_parser("list")
-    cmd_list.add_argument("--cluster", help="Cluster name or ID")
-    cmd_list.add_argument("--task-id", help="Task ID")
+    cmd_list.add_argument("--cluster", "-c", help="Cluster name or ID")
+    cmd_list.add_argument("--task-id", "-t", help="Task ID")
 
 
 def subcmd_list(args):

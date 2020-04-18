@@ -4,6 +4,7 @@ defmodule MoanaWeb.NodeTaskController do
   alias Moana.Messages
   alias Moana.Messages.Task
   alias Moana.Messages.NodeTask
+  alias Moana.VolumeTasks
 
   action_fallback MoanaWeb.FallbackController
 
@@ -21,6 +22,11 @@ defmodule MoanaWeb.NodeTaskController do
     node_task = Messages.get_node_task!(id)
 
     with {:ok, %NodeTask{} = node_task} <- Messages.update_node_task(node_task, task_params) do
+      task = Messages.get_task!(node_task.task_id)
+      if VolumeTasks.all_node_tasks_complete(task) do
+        IO.inspect Messages.update_task(task, %{state: VolumeTasks.aggregated_task_state(task)})
+        VolumeTasks.on_success(String.to_atom(task.type), task)
+      end
       render(conn, "show.json", node_task: node_task)
     end
   end

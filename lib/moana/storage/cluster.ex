@@ -8,6 +8,7 @@ defmodule Moana.Storage.Cluster do
     field :name, :string
     has_many :nodes, Moana.Storage.Node, foreign_key: :cluster_id
     has_many :tasks, Moana.Messages.Task, foreign_key: :cluster_id
+    has_many :volumes, Moana.Storage.Volume, foreign_key: :cluster_id
 
     timestamps()
   end
