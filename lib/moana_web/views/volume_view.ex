@@ -11,7 +11,12 @@ defmodule MoanaWeb.VolumeView do
   end
 
   def render("volume.json", %{volume: volume}) do
-    %{id: volume.id,
-      name: volume.name}
+    %{
+      id: volume.id,
+      name: volume.name,
+      type: volume.type,
+      state: volume.state,
+      cluster_id: volume.cluster_id
+    }
   end
 end

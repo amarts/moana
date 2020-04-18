@@ -2,7 +2,7 @@ import requests
 
 from moana.cliutils import failure, get_default_cluster_id, \
     save_local_cluster_list, get_cluster_id, set_default_cluster_id, \
-    remove_default_cluster_id
+    remove_default_cluster_id, sync_clusters_info
 
 
 def set_args(subparser):
@@ -36,6 +36,7 @@ def subcmd_create(args):
         }
     )
     if resp.status_code == 201:
+        sync_clusters_info(args)
         print("Cluster created successfully")
         print("Cluster ID: %s" % resp.json()["data"]["id"])
     else:
