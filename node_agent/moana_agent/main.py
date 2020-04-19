@@ -7,7 +7,8 @@ import logging
 
 import requests
 
-from moana_agent.agentutils import logging_setup, logf, TaskState
+from moana_agent.agentutils import logging_setup, logf, \
+    RECEIVED, COMPLETED_STATES, SUCCESS, FAILURE
 from moana_agent import handlers
 
 
@@ -27,9 +28,9 @@ def update_nodetask_state(args, nodetask, state):
     response = {
         "state": state[0]
     }
-    if state[0] in TaskState.completed_states():
+    if state[0] in COMPLETED_STATES:
         if state[1] != '':
-            key = "data" if TaskState.Success else "error"
+            key = "data" if SUCCESS else "error"
             response["response"] = json.dumps({
                 key: state[1]
             })
@@ -77,7 +78,7 @@ def handle_task(args, nodetask):
             return func(args, nodetask)
         except Exception as err:
             # Any unhandled exception in handler is Task Failure
-            return (TaskState.Failure, err)
+            return (FAILURE, err)
 
     logging.warning(logf("Not implemented", task_type=tasktype))
 
@@ -90,12 +91,12 @@ def listen(args):
         # get messages
         nodetasks = get_new_nodetasks(args)
         for nodetask in nodetasks["data"]:
-            if nodetask["state"] in TaskState.completed_states():
+            if nodetask["state"] in COMPLETED_STATES:
                 logging.debug(logf("Ignoring already completed task",
                                    task_id=nodetask["task"]["id"]))
                 continue
 
-            update_nodetask_state(args, nodetask, TaskState.Received)
+            update_nodetask_state(args, nodetask, RECEIVED)
             logging.debug(logf("Doing task..", task_id=nodetask["task"]["id"]))
 
             response_state = handle_task(args, nodetask)
