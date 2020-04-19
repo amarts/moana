@@ -1,11 +1,11 @@
 import logging
 
-from moana_agent.agentutils import TaskState, logf
+from moana_agent.agentutils import SUCCESS, FAILURE, logf
 
 
 def handle_volume_create(args, nodetask):
     """Handle Volume create"""
-    return TaskState.Success
+    return SUCCESS
 
 
 def handle_volume_create_start(args, nodetask):

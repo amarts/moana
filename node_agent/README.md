@@ -52,7 +52,7 @@ message or dict. For example,
 ```
 def handle_volume_create(args, nodetask):
     ...
-    return TaskState.Success
+    return SUCCESS
 ```
 
 or
@@ -60,7 +60,7 @@ or
 ```
 def handle_volume_create(args, nodetask):
     ...
-    return (TaskState.Failure, {
+    return (FAILURE, {
         "message": "brick is already part of another volume",
         "path": "/bricks/b1"
     })

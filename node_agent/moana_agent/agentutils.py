@@ -2,15 +2,12 @@ import logging
 import sys
 
 
-class TaskState:
-    Queued = "Queued"
-    Received = "Received"
-    Success = "Success"
-    Failure = "Failure"
+QUEUED = "Queued"
+RECEIVED = "Received"
+SUCCESS = "Success"
+FAILURE = "Failure"
 
-    @classmethod
-    def completed_states(cls):
-        return [cls.Success, cls.Failure]
+COMPLETED_STATES = [SUCCESS, FAILURE]
 
 
 def logf(msg, **kwargs):
