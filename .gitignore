@@ -27,4 +27,6 @@ moana-*.tar
 # this depending on your deployment strategy.
 /priv/static/
 
+mix.lock
+
 __pycache__
